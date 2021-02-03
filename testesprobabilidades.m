@@ -5,20 +5,22 @@ close all
 clc
 
 %%
-pos = [1;2;3;4;5;6];
+maior_lado = 20;
 n_dados = 3;
-n_esp_am = length(pos)^n_dados;
+n_esp_am = maior_lado^n_dados;
 
 min = n_dados;
-max = n_dados*6;
+max = n_dados*maior_lado;
 
 somas = [min:1:max]';
 n_cenarios = zeros(length(somas),1);
 
-jogada = [1;1;1];
+jogada = zeros(n_dados,1);
+jogada(:) = 1;
+
 
 %%
-
+%jogadas
 
 for i = 1:n_esp_am 
     
@@ -32,9 +34,9 @@ for i = 1:n_esp_am
     
     jogada(1) = jogada(1) + 1;
     for j = 1:n_dados
-        if jogada(j) == 7
+        if jogada(j) == maior_lado + 1
            jogada(j) = 1;
-           if j ~= 3
+           if j ~= n_dados
            jogada(j+1) = jogada(j+1) + 1;   
            end
         end
@@ -42,6 +44,8 @@ for i = 1:n_esp_am
          
     
 end
+%%
+%plot
 
 figure(1),clf
 plot(somas,n_cenarios, 'g-')
