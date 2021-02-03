@@ -1,0 +1,47 @@
+%Testes Probabilidaes
+%%
+clear all
+close all
+clc
+
+%%
+pos = [1;2;3;4;5;6];
+n_dados = 3;
+n_esp_am = length(pos)^n_dados;
+
+min = n_dados;
+max = n_dados*6;
+
+somas = [min:1:max]';
+n_cenarios = zeros(length(somas),1);
+
+jogada = [1;1;1];
+
+%%
+
+
+for i = 1:n_esp_am 
+    
+    %jogada  
+    
+    for k = 1:length(somas)
+        if sum(jogada) == somas(k)
+            n_cenarios(k) = n_cenarios(k) + 1;
+        end
+    end
+    
+    jogada(1) = jogada(1) + 1;
+    for j = 1:n_dados
+        if jogada(j) == 7
+           jogada(j) = 1;
+           if j ~= 3
+           jogada(j+1) = jogada(j+1) + 1;   
+           end
+        end
+    end
+         
+    
+end
+
+figure(1),clf
+plot(somas,n_cenarios, 'g-')
